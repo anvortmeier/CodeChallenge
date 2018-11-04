@@ -7,7 +7,7 @@ namespace CodeChallenge.Services
 	public class UsersService
 	{
 		private readonly CodeChallengeService client;
-		private readonly string gitId;
+		private readonly string githubId;
 
 		public UsersService()
 		{

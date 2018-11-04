@@ -31,6 +31,35 @@ namespace CodeChallenge.Services
 			}
 		}
 
+		public IEnumerable<RepoModel> GetGithubIdRepos(string githubId)
+		{
+			try
+			{
+				var repos = httpClient.GetAsync(new Uri($"https://api.github.com/users/{githubId}/repos")).Result;
+				return repos.Content.ReadAsAsync<List<RepoModel>>().Result;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+				throw;
+			}
+		}
+
+		public IEnumerable<StargazerModel> GetGithubIdRepoStargazers(string githubId, string repo)
+		{
+			try
+			{
+				var stargazers = httpClient.GetAsync(new Uri($"https://api.github.com/repos/{githubId}/{repo}/stargazers")).Result;
+				return stargazers.Content.ReadAsAsync<List<StargazerModel>>().Result;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+				throw;
+			}
+		}
+
+
 		public IEnumerable<FollowerModel> GetGithubUsers()
 		{
 			try

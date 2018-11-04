@@ -7,7 +7,7 @@ namespace CodeChallenge.Controllers
 {
 	
 	[Produces("application/json")]
-	[Route("api/Follower")]
+	[Route("api/Followers")]
 	public class FollowersController : Controller
 	{
 		[HttpGet("{githubID}")]

@@ -4,25 +4,25 @@ using CodeChallenge.Models;
 
 namespace CodeChallenge.Services
 {
-	public class FollowersService
+	public class RepoService
 	{
 		private readonly CodeChallengeService client;
 		private readonly string githubId;
 
-		public FollowersService(string githubId)
+		public RepoService(string githubId)
 		{
 			this.githubId = githubId;
 			client = new CodeChallengeService();
 		}
 
-		public IEnumerable<FollowerModel> ViewFollowersById()
+		public IEnumerable<RepoModel> ReposbyId()
 		{
-			return LimitFollowersToFive();
+			return LimitReposToThree();
 		}
 
-		private IEnumerable<FollowerModel> LimitFollowersToFive()
+		private IEnumerable<RepoModel> LimitReposToThree()
 		{
-			return client.GetGithubIdFollowers(githubId).Take(5);
+			return client.GetGithubIdRepos(githubId).Take(3);
 		}
 	}
 }
