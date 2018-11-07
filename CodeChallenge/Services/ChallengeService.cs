@@ -40,7 +40,6 @@ namespace CodeChallenge.Services
 			}
 			else if(followers.StatusCode.Equals(HttpStatusCode.Forbidden)){
 				Console.WriteLine("Forbidden");
-				
 			}
 
 			return new List<RootObject>();

@@ -17,10 +17,23 @@ namespace CodeChallenge.Services
 
 		public IEnumerable<RepoModel> ReposbyId()
 		{
-			return LimitReposToThree();
+			var repos = LimitReposToThree(githubId);
+			foreach(var repoA in repos)
+			{
+				string repoIdA = repoA.id.ToString();
+				repoA.repos = LimitReposToThree(repoIdA).ToList();
+
+				foreach (var repoB in repoA.repos)
+				{
+					string repoIdB = repoB.id.ToString();
+					repoB.repos = LimitReposToThree(repoIdA).ToList();
+				}
+			}
+
+			return repos;
 		}
 
-		private IEnumerable<RepoModel> LimitReposToThree()
+		private IEnumerable<RepoModel> LimitReposToThree(string id)
 		{
 			return client.GetGithubIdRepos(githubId).Take(3);
 		}

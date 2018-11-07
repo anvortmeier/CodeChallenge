@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace CodeChallenge.Models
 {
@@ -94,10 +95,15 @@ namespace CodeChallenge.Models
 			public string type { get; set; }
 			public bool site_admin { get; set; }
 		}
+		
+		public List<RepoModel> repos { get; set; }
 	}
 
 	public class RepoNameModel
 	{
 		public string Repo { get; set; }
 	}
+
+
+
 }
