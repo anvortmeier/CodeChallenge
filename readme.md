@@ -22,3 +22,5 @@ Body:
 	"Repo": "{repositoryNameGoesHere}"
 	}
 ]
+
+Testing was completed using PostMan and debugging the code in Visual Studio (in order to step through and see what was happening, input, output, etc.) 
