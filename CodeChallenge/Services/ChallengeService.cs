@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using CodeChallenge.Models;
+using Newtonsoft.Json;
 
 namespace CodeChallenge.Services
 {
@@ -17,18 +19,31 @@ namespace CodeChallenge.Services
 			httpClient.DefaultRequestHeaders.Add("User-Agent", "anvortmeier");
 		}
 
-		public IEnumerable<FollowerModel> GetGithubIdFollowers(string githubId)
+		public IEnumerable<RootObject> GetGithubIdFollowers(string githubId)
 		{
-			try
+			var followers = httpClient.GetAsync(new Uri($"https://api.github.com/users/{githubId}/followers")).Result;
+
+			if (followers.IsSuccessStatusCode)
 			{
-				var followers = httpClient.GetAsync(new Uri($"https://api.github.com/users/{githubId}/followers")).Result;
-				return followers.Content.ReadAsAsync<List<FollowerModel>>().Result;
+				var root = followers.Content.ReadAsStringAsync().Result;
+
+				try
+				{
+					return JsonConvert.DeserializeObject<IEnumerable<RootObject>>(root);
+				}
+				catch (Exception ex)
+				{
+					RootObject o = JsonConvert.DeserializeObject<RootObject>(root);
+					IEnumerable<RootObject> rootObjects = new List<RootObject>(){o};
+					return rootObjects;
+				}
 			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex);
-				throw;
+			else if(followers.StatusCode.Equals(HttpStatusCode.Forbidden)){
+				Console.WriteLine("Forbidden");
+				
 			}
+
+			return new List<RootObject>();
 		}
 
 		public IEnumerable<RepoModel> GetGithubIdRepos(string githubId)
@@ -60,12 +75,12 @@ namespace CodeChallenge.Services
 		}
 
 
-		public IEnumerable<FollowerModel> GetGithubUsers()
+		public IEnumerable<RootObject> GetGithubUsers()
 		{
 			try
 			{
 				var users = httpClient.GetAsync(new Uri($"https://api.github.com/users")).Result;
-				return users.Content.ReadAsAsync<List<FollowerModel>>().Result;
+				return users.Content.ReadAsAsync<List<RootObject>>().Result;
 			}
 			catch (Exception ex)
 			{

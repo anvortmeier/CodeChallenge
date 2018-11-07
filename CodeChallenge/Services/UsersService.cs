@@ -14,7 +14,7 @@ namespace CodeChallenge.Services
 			client = new CodeChallengeService();
 		}
 
-		public IEnumerable<FollowerModel> ViewUsers()
+		public IEnumerable<RootObject> ViewUsers()
 		{
 			return client.GetGithubUsers();
 		}

@@ -11,7 +11,7 @@ namespace CodeChallenge.Controllers
 	public class UsersController : Controller
 	{
 		[HttpGet]
-		public IEnumerable<FollowerModel> GetAllUsers()
+		public IEnumerable<RootObject> GetAllUsers()
 		{
 			var users = new UsersService();
 			return users.ViewUsers();

@@ -11,10 +11,10 @@ namespace CodeChallenge.Controllers
 	public class FollowersController : Controller
 	{
 		[HttpGet("{githubID}")]
-		public IEnumerable<FollowerModel> GetFollowers(string githubID)
+		public IEnumerable<RootObject> GetFollowers(string githubID)
 		{
 			var followers = new FollowersService(githubID);
-			return followers.ViewFollowersById();
+			return followers.ViewFollowers();
 		}
 	}
 }
