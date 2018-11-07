@@ -17,6 +17,7 @@ namespace CodeChallenge.Services
 			httpClient = new HttpClient();
 			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 			httpClient.DefaultRequestHeaders.Add("User-Agent", "anvortmeier");
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "1a5708c5774a8a9dcf3809f55b702dba144ffdf6");
 		}
 
 		public IEnumerable<RootObject> GetGithubIdFollowers(string githubId)
